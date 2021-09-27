@@ -1,0 +1,13 @@
+/* SLIDER: START */
+.slider_small {
+  height: 150px;
+}
+@media screen and (max-width: 750px) {
+  .slider_small {
+    height: 100px;
+  }
+  .slider_small h1 {
+    padding: 30px;
+  }
+}
+/* SLIDER: END */

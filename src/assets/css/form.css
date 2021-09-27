@@ -1,0 +1,99 @@
+/* FORM: START */
+#form {
+  width: 80%;
+  min-height: 800px;
+  margin: 0 0 0 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.form_title {
+  margin: 0;
+  padding: 20px 0;
+}
+
+.mid_form {
+  width: 90%;
+  margin: 0px auto;
+}
+
+.mid_form .form_group {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+
+.mid_form .form_group label {
+  display: block;
+  padding: 0 0 5px 0;
+  text-align: left;
+  font-weight: 600;
+}
+
+.mid_form input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  height: 30px;
+  padding: 2px;
+  font-family: "Work Sans", sans-serif;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: rgb(249, 249, 249);
+}
+
+.mid_form textarea {
+  display: block;
+  width: 100%;
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+  margin: 0;
+  padding: 2px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: rgb(249, 249, 249);
+}
+
+.radiobuttons {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.radiobutton_group {
+  display: flex;
+  justify-content: center;
+}
+
+.radiobuttons input {
+  margin: auto 5px auto 0;
+}
+
+.radiobuttons span {
+  margin: auto 0;
+  padding: 0 20px 0 0;
+}
+
+@media screen and (max-width: 830px) {
+  #form {
+    width: auto;
+    margin: 0;
+    min-height: auto;
+  }
+}
+@media screen and (max-width: 425px) {
+  .radiobuttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .radiobuttons span {
+    padding: 0;
+  }
+}
+/* FORM: END */

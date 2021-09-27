@@ -1,0 +1,17 @@
+<header id="header">
+  <div class="header_div">
+    <div id="logo">
+      <img src="assets/images/angular.png" class="img_logo" alt="Logotipo" />
+      <span id="brand"> <strong>Squish</strong>Angular </span>
+    </div>
+    <nav id="menu">
+      <ul>
+        <li><a [routerLink]="['/home']" [routerLinkActive]="['active']">Inicio</a></li>
+        <li><a [routerLink]="['/blog']" [routerLinkActive]="['active']">Blog</a></li>
+        <li><a [routerLink]="['/form']" [routerLinkActive]="['active']">Formulario</a></li>
+        <li><a [routerLink]="['/movie']" [routerLinkActive]="['active']">Peliculas</a></li>
+        <li><a [routerLink]="['/page-test']" [routerLinkActive]="['active']">Pagina X</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

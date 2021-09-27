@@ -1,0 +1,12 @@
+<h1>{{ title }}</h1>
+<h2>{{ year }}</h2>
+<p>{{ comment }}</p>
+<p>¿Acaso no lo viste venir?</p>
+
+<button (click)="hideMovies()">Ocultar Películas</button>
+<div *ngIf="showMovies">
+  <app-movie></app-movie>
+</div>
+
+<pruebas></pruebas>
+<app-home></app-home>

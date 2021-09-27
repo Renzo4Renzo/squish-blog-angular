@@ -1,0 +1,14 @@
+<h1>Página de Pruebas</h1>
+<div *ngIf="currentName && currentSurname">
+  <p>
+    El nombre es: <b>{{ currentName }}</b>
+  </p>
+  <p>
+    El apellido es: <b>{{ currentSurname }}</b>
+  </p>
+</div>
+<div *ngIf="!currentName || !currentSurname">
+  <p>No hay datos que mostrar, pero Ramocito es GOD</p>
+</div>
+
+<button (click)="redirection()">Take me down to the paradise city!</button>
