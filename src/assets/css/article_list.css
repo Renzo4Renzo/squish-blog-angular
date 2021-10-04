@@ -1,4 +1,4 @@
-/* ARTICLES: START */
+/* ARTICLE LIST: START */
 #articles {
   width: 80%;
   min-height: 800px;
@@ -67,4 +67,15 @@
 .article_text a:hover {
   color: #eb1616;
 }
-/* ARTICLES: END */
+/* ARTICLE LIST: END */
+
+/* ARTICLE LIST EXPERIMENTS: START */
+.year-green{
+  color: green;
+  font-weight: bold;
+}
+
+.year-red{
+  color: red;
+}
+/* ARTICLE LIST EXPERIMENTS: END */

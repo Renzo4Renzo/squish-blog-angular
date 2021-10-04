@@ -28,7 +28,7 @@
               "src/assets/css/article.css",
               "src/assets/css/blog.css",
               "src/assets/css/form.css",
-              "src/assets/css/index.css",
+              "src/assets/css/article_list.css",
               "src/assets/css/styles.css"
             ],
             "scripts": []

@@ -1,3 +1,39 @@
 <h2>Películas</h2>
 <h3>{{ title }}</h3>
 <button (click)="changeTitle()">Pulsame</button>
+<hr />
+
+<h2>Mostrar primera película</h2>
+{{ movies[0].title }}
+
+<hr />
+
+<h2>Numero de películas</h2>
+<div *ngIf="movies.length <= 3">Hay pocas películas</div>
+
+<div *ngIf="movies.length > 3">Hay muchas películas:</div>
+{{ movies.length }}
+
+<hr />
+
+<h2>Listado de Peliculas</h2>
+<section *ngIf="movies && movies.length > 0">
+  <h2 id="articles_title">Últimos Artículos</h2>
+  <article class="article_item" *ngFor="let movie of movies; let i = index">
+    <div class="image_wrap">
+      <img src="{{ movie.image }}" alt="{{ movie.title }}" />
+    </div>
+    <div class="article_text">
+      <h2>{{ movie.title }}</h2>
+      <span
+        class="date"
+        [ngClass]="{
+          'year-green': movie.year > 2016,
+          'year-red': movie.year <= 2016
+        }"
+        >{{ movie.year }}</span
+      >
+      <a href="article.html">Leer más &raquo;</a>
+    </div>
+  </article>
+</section>

@@ -1,14 +1,17 @@
 <h1>Página de Pruebas</h1>
-<div *ngIf="currentName && currentSurname">
+<div *ngIf="currentName && currentSurname; then hasNames; else noNames"></div>
+
+<ng-template #hasNames>
   <p>
     El nombre es: <b>{{ currentName }}</b>
   </p>
   <p>
     El apellido es: <b>{{ currentSurname }}</b>
   </p>
-</div>
-<div *ngIf="!currentName || !currentSurname">
-  <p>No hay datos que mostrar, pero Ramocito es GOD</p>
-</div>
+</ng-template>
 
-<button (click)="redirection()">Take me down to the paradise city!</button>
+<ng-template #noNames>
+  <p>No hay datos que mostrar papacito</p>
+</ng-template>
+
+<button (click)="redirection()">Give me some names, horny baka!</button>

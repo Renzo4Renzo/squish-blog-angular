@@ -4,7 +4,6 @@ import { appRoutingProviders, routing } from "./app.routing";
 
 import { AppComponent } from "./app.component";
 import { TestComponent } from "./components/test-component/test.component";
-import { PruebasComponent } from "./components/pruebas/pruebas.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { SliderComponent } from "./components/slider/slider.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
@@ -21,7 +20,6 @@ import { ErrorComponent } from './components/error/error.component';
   declarations: [
     AppComponent,
     TestComponent,
-    PruebasComponent,
     HeaderComponent,
     SliderComponent,
     SidebarComponent,
