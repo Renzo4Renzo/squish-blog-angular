@@ -1,1 +1,25 @@
-<h1>Blog</h1>
+<app-slider [sliderTitle]="blogSliderText" [size]="sliderSize"></app-slider>
+
+<div class="content_div">
+  <section id="articles">
+    <h1>Blog</h1>
+
+    <article class="article_item" *ngFor="let article of articles">
+      <div class="image_wrap">
+        <img
+          src="{{ baseURL + 'article_img/' + article.image }}"
+          alt="{{ article.title }}"
+          *ngIf="article.image != null"
+        />
+        <img src="assets/images/default.jpg" alt="{{ article.title }}" *ngIf="article.image == null" />
+      </div>
+      <div class="article_text">
+        <h2>{{ article.title }}</h2>
+        <span class="date">{{ article.date }}</span>
+        <a href="article.html">Leer más &raquo;</a>
+      </div>
+    </article>
+  </section>
+
+  <app-sidebar id="sidebar"></app-sidebar>
+</div>

@@ -1,17 +1,25 @@
-<h1>Página de Pruebas</h1>
-<div *ngIf="currentName && currentSurname; then hasNames; else noNames"></div>
+<app-slider [sliderTitle]="pageSliderText"></app-slider>
 
-<ng-template #hasNames>
-  <p>
-    El nombre es: <b>{{ currentName }}</b>
-  </p>
-  <p>
-    El apellido es: <b>{{ currentSurname }}</b>
-  </p>
-</ng-template>
+<div class="content_div">
+  <section id="articles">
+    <h1>Página de Pruebas</h1>
+    <div *ngIf="currentName && currentSurname; then hasNames; else noNames"></div>
 
-<ng-template #noNames>
-  <p>No hay datos que mostrar papacito</p>
-</ng-template>
+    <ng-template #hasNames>
+      <p>
+        El nombre es: <b>{{ currentName }}</b>
+      </p>
+      <p>
+        El apellido es: <b>{{ currentSurname }}</b>
+      </p>
+    </ng-template>
 
-<button (click)="redirection()">Give me some names, horny baka!</button>
+    <ng-template #noNames>
+      <p>No hay datos que mostrar papacito</p>
+    </ng-template>
+
+    <button (click)="redirection()">Give me some names, horny baka!</button>
+  </section>
+
+  <app-sidebar id="sidebar"></app-sidebar>
+</div>

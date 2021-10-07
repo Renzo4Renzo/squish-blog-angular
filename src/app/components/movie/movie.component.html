@@ -1,39 +1,38 @@
-<h2>Películas</h2>
-<h3>{{ title }}</h3>
-<button (click)="changeTitle()">Pulsame</button>
-<hr />
+<app-slider [sliderTitle]="movieSliderText" [size]="sliderSize"></app-slider>
 
-<h2>Mostrar primera película</h2>
-{{ movies[0].title }}
+<div class="content_div">
+  <section id="articles">
+    <!-- <h2>Películas</h2>
+    <h3>{{ title }}</h3>
+    <button (click)="changeTitle()">Pulsame</button>
+    <hr />
 
-<hr />
+    <h2>Mostrar primera película</h2>
+    {{ movies[0].title }}
 
-<h2>Numero de películas</h2>
-<div *ngIf="movies.length <= 3">Hay pocas películas</div>
+    <hr />
 
-<div *ngIf="movies.length > 3">Hay muchas películas:</div>
-{{ movies.length }}
+    <h2>Numero de películas</h2>
+    <div *ngIf="movies.length <= 3">Hay pocas películas</div>
 
-<hr />
+    <div *ngIf="movies.length > 3">Hay muchas películas:</div>
+    {{ movies.length }}
 
-<h2>Listado de Peliculas</h2>
-<section *ngIf="movies && movies.length > 0">
-  <h2 id="articles_title">Últimos Artículos</h2>
-  <article class="article_item" *ngFor="let movie of movies; let i = index">
-    <div class="image_wrap">
-      <img src="{{ movie.image }}" alt="{{ movie.title }}" />
+    <hr /> -->
+    <div id="favoriteMovie" *ngIf="favoriteMovie">
+      <h2>Pelicula Favorita</h2>
+      <p>{{ favoriteMovie.title | lowercase }}</p>
+      <p>{{ favoriteMovie.year | isEven }}</p>
+      <p>{{ someDate | date: "dd/MM/yyyy" }}</p>
     </div>
-    <div class="article_text">
-      <h2>{{ movie.title }}</h2>
-      <span
-        class="date"
-        [ngClass]="{
-          'year-green': movie.year > 2016,
-          'year-red': movie.year <= 2016
-        }"
-        >{{ movie.year }}</span
-      >
-      <a href="article.html">Leer más &raquo;</a>
-    </div>
-  </article>
-</section>
+
+    <h2>Listado de Peliculas</h2>
+    <section *ngIf="movies && movies.length > 0">
+      <div *ngFor="let movie of movies; let i = index">
+        <app-movie-item [movie]="movie" (selectFavorite)="showFavorite($event)"></app-movie-item>
+      </div>
+    </section>
+  </section>
+
+  <app-sidebar id="sidebar"></app-sidebar>
+</div>

@@ -80,6 +80,24 @@
   padding: 0 20px 0 0;
 }
 
+@media screen and (max-width: 1450px) {
+  #form {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  #form {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  #form {
+    width: 65%;
+  }
+}
+
 @media screen and (max-width: 830px) {
   #form {
     width: auto;

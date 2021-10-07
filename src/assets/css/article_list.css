@@ -2,7 +2,7 @@
 #articles {
   width: 80%;
   min-height: 800px;
-  margin: 0 20px;
+  margin: 0 0 0 20px;
   padding: 20px;
 }
 
@@ -28,9 +28,11 @@
 }
 
 .article_item .image_wrap img {
+  width: 200px;
   height: 120px;
   border: 2px solid #ccc;
   box-sizing: border-box;
+  object-fit: cover;
 }
 
 .article_text {
@@ -70,12 +72,12 @@
 /* ARTICLE LIST: END */
 
 /* ARTICLE LIST EXPERIMENTS: START */
-.year-green{
+.year-green {
   color: green;
   font-weight: bold;
 }
 
-.year-red{
+.year-red {
   color: red;
 }
 /* ARTICLE LIST EXPERIMENTS: END */

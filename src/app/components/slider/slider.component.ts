@@ -6,10 +6,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent implements OnInit {
-  @Input() someText: string;
+  @Input() sliderTitle: string;
+  @Input() size: string;
 
   constructor() {
-    this.someText = '';
+    this.sliderTitle = '';
+    this.size = 'big';
   }
 
   ngOnInit(): void {}

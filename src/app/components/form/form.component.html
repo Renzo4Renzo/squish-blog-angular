@@ -1,1 +1,90 @@
-<h1>Formulario</h1>
+<app-slider [sliderTitle]="formSliderText" [size]="sliderSize"></app-slider>
+
+<div class="content_div">
+  <section id="form">
+    <h1 class="form_title">Formulario</h1>
+
+    <!-- <div id="roughContactData" *ngIf="person.name">
+      <ul>
+        <h4>Showing your data...</h4>
+        <li>{{ person.name }}</li>
+        <li>{{ person.surname }}</li>
+        <li>{{ person.biography }}</li>
+        <li>{{ person.gender }}</li>
+      </ul>
+    </div> -->
+
+    <form class="mid_form" #contactForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form_group">
+        <label for="name">Nombres</label>
+        <input
+          type="text"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="person.name"
+          required
+          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1][a-zA-ZÀ-ÿ\u00f1\u00d1\s]*$"
+        />
+        <small *ngIf="!name.valid && name.touched">¡El nombre ingresado no es válido!</small>
+      </div>
+      <div class="form_group">
+        <label for="surname">Apellidos</label>
+        <input
+          type="text"
+          name="surname"
+          #surname="ngModel"
+          [(ngModel)]="person.surname"
+          required
+          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1][a-zA-ZÀ-ÿ\u00f1\u00d1\s]*$"
+        />
+        <small *ngIf="!surname.valid && surname.touched">¡El apellido ingresado no es válido!</small>
+      </div>
+      <div class="form_group">
+        <label for="biography">Biografía</label>
+        <textarea
+          name="biography"
+          #biography="ngModel"
+          [(ngModel)]="person.biography"
+          required
+          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d10-9,;:.\-()¿?¡!\u0022][a-zA-ZÀ-ÿ\u00f1\u00d10-9,;:.\-()¿?¡!\u0022\s]*$"
+        ></textarea>
+        <small *ngIf="!biography.valid && biography.touched">¡La biografía ingresada no es válido!</small>
+      </div>
+      <div class="form_group">
+        <label for="gender">Género</label>
+        <div class="radiobuttons">
+          <div class="radiobutton_group">
+            <input
+              type="radio"
+              name="gender"
+              value="Masculino"
+              #gender="ngModel"
+              [(ngModel)]="person.gender"
+              required
+            />
+            <span>Masculino</span>
+          </div>
+
+          <div class="radiobutton_group">
+            <input type="radio" name="gender" value="Femenino" #gender="ngModel" [(ngModel)]="person.gender" />
+            <span>Femenino</span>
+          </div>
+
+          <div class="radiobutton_group">
+            <input type="radio" name="gender" value="Otro" #gender="ngModel" [(ngModel)]="person.gender" />
+            <span>Otro</span>
+          </div>
+
+          <small *ngIf="!gender.valid && gender.touched">¡El género ingresado no es válido!</small>
+        </div>
+      </div>
+      <input type="submit" value="Enviar" class="btn btn_success" [disabled]="contactForm.invalid" />
+    </form>
+
+    <!-- <h2>Eventos de Prueba</h2>
+    <button (click)="isClicked()">¡Dale click!</button>
+    <input type="text" [(ngModel)]="testText" (blur)="isLeft()" (keyup.enter)="isEnterPressed()" /> {{ testText }} -->
+  </section>
+
+  <app-sidebar id="sidebar"></app-sidebar>
+</div>

@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class PageComponent implements OnInit {
   public currentName: string;
   public currentSurname: string;
+  public pageSliderText = 'Página';
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.currentName = '';

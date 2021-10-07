@@ -1,4 +1,11 @@
-<div id="slider" class="slider slider_big">
-  <h1>{{ someText }}</h1>
-  <a href="blog.html" class="btn_goToBlog">Ir al Blog</a>
+<div
+  id="slider"
+  class="slider"
+  [ngClass]="{
+    slider_big: size == 'big',
+    slider_small: size == 'small'
+  }"
+>
+  <h1>{{ sliderTitle }}</h1>
+  <a [routerLink]="['/blog']" class="btn_goToBlog" *ngIf="size == 'big'">Ir al Blog</a>
 </div>
