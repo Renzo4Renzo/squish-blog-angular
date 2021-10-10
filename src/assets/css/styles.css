@@ -32,6 +32,7 @@ body {
   margin: 0px;
   display: flex;
   justify-content: start;
+  cursor: pointer;
 }
 
 #logo img {
@@ -518,11 +519,31 @@ body {
   background: rgb(13, 100, 10);
 }
 
+.btn_warning {
+  background: #ff8c11;
+}
+
+.btn_warning:hover {
+  background: #e67700;
+}
+
+.btn_danger {
+  background: #eb1616;
+}
+
+.btn_danger:hover {
+  background: #d20303;
+}
+
 .btn_info {
   background: rgb(34, 125, 230);
 }
 
 .btn_info:hover {
   background: rgb(30, 107, 196);
+}
+
+.btn_disabled {
+  background: #3e3e3e;
 }
 /* BOTONES: END */

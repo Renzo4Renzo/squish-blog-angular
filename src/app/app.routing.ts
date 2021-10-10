@@ -9,12 +9,18 @@ import { FormComponent } from './components/form/form.component';
 import { MovieComponent } from './components/movie/movie.component';
 import { PageComponent } from './components/page/page.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ArticleComponent } from './components/article/article.component';
+import { ArticleSearchComponent } from './components/article-search/article-search.component';
+import { ArticleCreateComponent } from './components/article-create/article-create.component';
 
 // Array de Rutas
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'blog', component: BlogComponent },
+  { path: 'blog/article/:id', component: ArticleComponent },
+  { path: 'article/create', component: ArticleCreateComponent },
+  { path: 'search/:searchString', component: ArticleSearchComponent },
   { path: 'form', component: FormComponent },
   { path: 'movie', component: MovieComponent },
   { path: 'page-test', component: PageComponent },

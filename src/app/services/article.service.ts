@@ -16,7 +16,25 @@ export class ArticleService {
     return '¡Soy el servicio con cebolla!';
   }
 
-  getArticles(): Observable<any> {
-    return this.http.get(this.baseURL + 'article_list');
+  getArticles(latestFive: any = null): Observable<any> {
+    var articlelistURL = 'article_list';
+    if (latestFive != null) {
+      articlelistURL = 'article_list/last_five';
+    }
+    return this.http.get(this.baseURL + articlelistURL);
+  }
+
+  getArticle(articleId: string): Observable<any> {
+    return this.http.get(this.baseURL + 'article/' + articleId);
+  }
+
+  searchArticle(searchString: string): Observable<any> {
+    return this.http.get(this.baseURL + 'article_search/' + searchString);
+  }
+
+  createArticle(articleToCreate: Article): Observable<any> {
+    let params = JSON.stringify(articleToCreate);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.baseURL + 'article_save', params, { headers: headers });
   }
 }

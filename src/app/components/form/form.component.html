@@ -41,14 +41,8 @@
       </div>
       <div class="form_group">
         <label for="biography">Biografía</label>
-        <textarea
-          name="biography"
-          #biography="ngModel"
-          [(ngModel)]="person.biography"
-          required
-          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d10-9,;:.\-()¿?¡!\u0022][a-zA-ZÀ-ÿ\u00f1\u00d10-9,;:.\-()¿?¡!\u0022\s]*$"
-        ></textarea>
-        <small *ngIf="!biography.valid && biography.touched">¡La biografía ingresada no es válido!</small>
+        <textarea name="biography" #biography="ngModel" [(ngModel)]="person.biography" required></textarea>
+        <small *ngIf="!biography.valid && biography.touched">¡La biografía ingresada no es válida!</small>
       </div>
       <div class="form_group">
         <label for="gender">Género</label>
@@ -78,7 +72,13 @@
           <small *ngIf="!gender.valid && gender.touched">¡El género ingresado no es válido!</small>
         </div>
       </div>
-      <input type="submit" value="Enviar" class="btn btn_success" [disabled]="contactForm.invalid" />
+      <input
+        type="submit"
+        value="Enviar"
+        class="btn btn_success"
+        [ngClass]="contactForm.valid ? 'btn_success' : 'btn_disabled'"
+        [disabled]="contactForm.invalid"
+      />
     </form>
 
     <!-- <h2>Eventos de Prueba</h2>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { appRoutingProviders, routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { MomentModule } from 'ngx-moment';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test-component/test.component';
@@ -18,6 +19,10 @@ import { ErrorComponent } from './components/error/error.component';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { isEvenPipe } from './pipes/isEven.pipe';
 import { FormsModule } from '@angular/forms';
+import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ArticleComponent } from './components/article/article.component';
+import { ArticleSearchComponent } from './components/article-search/article-search.component';
+import { ArticleCreateComponent } from './components/article-create/article-create.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +40,12 @@ import { FormsModule } from '@angular/forms';
     ErrorComponent,
     MovieItemComponent,
     isEvenPipe,
+    ArticleListComponent,
+    ArticleComponent,
+    ArticleSearchComponent,
+    ArticleCreateComponent,
   ],
-  imports: [BrowserModule, routing, FormsModule, HttpClientModule],
+  imports: [BrowserModule, routing, FormsModule, HttpClientModule, MomentModule],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent],
 })

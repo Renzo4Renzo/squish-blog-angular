@@ -1,0 +1,10 @@
+<app-slider [sliderTitle]="searchSliderText" [size]="sliderSize"></app-slider>
+
+<div class="content_div">
+  <section id="articles">
+    <h1>Artículos que contienen "{{ searchString }}"</h1>
+    <app-article-list [articles]="articleList" [errorType]="errorType"></app-article-list>
+  </section>
+
+  <app-sidebar id="sidebar"></app-sidebar>
+</div>
