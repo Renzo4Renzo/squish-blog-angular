@@ -11,8 +11,8 @@
       <p class="article_content">{{ article.content }}</p>
 
       <div class="article_action_buttons">
-        <a href="#" class="btn btn_warning">Editar</a>
-        <a href="#" class="btn btn_danger">Borrar</a>
+        <a [routerLink]="['/article/edit', article._id]" class="btn btn_warning">Editar</a>
+        <a (click)="deleteArticle(article._id)" class="btn btn_danger">Borrar</a>
       </div>
     </article>
   </section>

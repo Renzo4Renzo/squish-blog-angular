@@ -499,7 +499,7 @@ body {
 }
 /* FOOTER: END */
 
-/* BOTONES: START */
+/* BOTONES PROPIOS: START */
 .btn {
   color: #fff;
   padding: 15px;
@@ -546,4 +546,53 @@ body {
 .btn_disabled {
   background: #3e3e3e;
 }
-/* BOTONES: END */
+/* BOTONES PROPIOS: END */
+
+/* BOTON CARGA IMAGEN: START */
+#attachPin > div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0px !important;
+}
+
+#attachPin a {
+  color: #000;
+  border: none;
+  border-radius: 0px;
+  border: 1px solid #cccccc;
+  background: rgb(249, 249, 249);
+  margin: 0;
+  padding: 10px;
+}
+
+#attachPin span {
+  font-size: 14px;
+  margin: 0 0 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BOTON CARGA IMAGEN: END */
+
+/* PERSONALIZACION SWAL MODAL: START */
+div.swal2-actions {
+  margin: 20px 0 5px 0;
+}
+
+div.swal2-icon {
+  margin: 25px auto 0px;
+}
+
+button.swal2-styled.swal2-confirm {
+  font-family: "Work Sans", sans-serif;
+  margin: 0 5px;
+}
+button.swal2-styled.swal2-confirm:focus {
+  box-shadow: none;
+}
+button.swal2-styled.swal2-cancel {
+  font-family: "Work Sans", sans-serif;
+  margin: 0 5px;
+}
+/* PERSONALIZACION SWAL MODAL: END */

@@ -1,6 +1,6 @@
 <div class="content_div">
   <section id="form">
-    <h1 class="form_title">Crear Artículo</h1>
+    <h1 class="form_title">Editar Artículo</h1>
 
     <form class="mid_form" #articleForm="ngForm" (ngSubmit)="submitArticle()">
       <div class="form_group">
@@ -9,7 +9,7 @@
           type="text"
           name="title"
           #title="ngModel"
-          [(ngModel)]="articleToCreate.title"
+          [(ngModel)]="articleToUpdate.title"
           required
           pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1][a-zA-ZÀ-ÿ\u00f1\u00d1\s]*$"
         />
@@ -18,19 +18,25 @@
 
       <div class="form_group">
         <label for="content">Contenido</label>
-        <textarea name="content" #content="ngModel" [(ngModel)]="articleToCreate.content" required></textarea>
+        <textarea name="content" #content="ngModel" [(ngModel)]="articleToUpdate.content" required></textarea>
         <small *ngIf="!content.valid && content.touched">¡El contenido ingresado no es válido!</small>
       </div>
 
       <div class="form_group">
         <label for="image">Imagen</label>
-        <!-- <div class="image_input"><input type="file" name="image" /></div> -->
+        <div class="article_edit_image">
+          <img
+            src="{{ baseURL + 'article_img/' + articleToUpdate.image }}"
+            alt="{{ articleToUpdate.title }}"
+            *ngIf="articleToUpdate.image"
+          />
+        </div>
         <angular-file-uploader [config]="afuConfig" (ApiResponse)="imageUpload($event)"> </angular-file-uploader>
       </div>
 
       <input
         type="submit"
-        value="Crear Artículo"
+        value="Editar Artículo"
         class="btn"
         [ngClass]="articleForm.valid ? 'btn_success' : 'btn_disabled'"
         [disabled]="articleForm.invalid"

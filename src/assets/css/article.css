@@ -57,6 +57,17 @@
   margin: 0 5px 0 5px;
 }
 
+.article_edit_image {
+  margin: 5px 0;
+  padding: auto 0;
+  display: flex;
+  justify-content: start;
+}
+
+.article_edit_image img {
+  width: 150px;
+}
+
 @media screen and (max-width: 830px) {
   #article {
     width: auto;

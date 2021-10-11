@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { appRoutingProviders, routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test-component/test.component';
@@ -23,6 +24,7 @@ import { ArticleListComponent } from './components/article-list/article-list.com
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleSearchComponent } from './components/article-search/article-search.component';
 import { ArticleCreateComponent } from './components/article-create/article-create.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,9 @@ import { ArticleCreateComponent } from './components/article-create/article-crea
     ArticleComponent,
     ArticleSearchComponent,
     ArticleCreateComponent,
+    ArticleEditComponent,
   ],
-  imports: [BrowserModule, routing, FormsModule, HttpClientModule, MomentModule],
+  imports: [BrowserModule, routing, FormsModule, HttpClientModule, MomentModule, AngularFileUploaderModule],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent],
 })

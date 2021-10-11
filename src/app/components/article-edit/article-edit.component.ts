@@ -7,25 +7,26 @@ import { Global } from 'src/app/services/global';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-article-create',
-  templateUrl: './article-create.component.html',
-  styleUrls: ['./article-create.component.css'],
+  selector: 'app-article-edit',
+  templateUrl: './article-edit.component.html',
+  styleUrls: ['./article-edit.component.css'],
   providers: [ArticleService],
 })
-export class ArticleCreateComponent implements OnInit {
-  public articleToCreate: Article;
+export class ArticleEditComponent implements OnInit {
+  public articleToUpdate: Article;
   public requestStatus: string = '';
+  public baseURL: string = Global.url;
 
   public afuConfig: any;
 
   constructor(private articleService: ArticleService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.articleToCreate = new Article('', '', '', '', null);
+    this.articleToUpdate = new Article('', '', '', '', null);
     this.afuConfig = {
       multiple: false,
       formatsAllowed: '.jpg,.png,.gif,.jpeg',
       maxSize: '1',
       uploadAPI: {
-        url: Global.url + 'article_img_upload',
+        url: this.baseURL + 'article_img_upload',
         method: 'POST',
       },
       theme: 'attachPin',
@@ -47,41 +48,63 @@ export class ArticleCreateComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getArticle();
+  }
 
   submitArticle() {
-    this.articleService.createArticle(this.articleToCreate).subscribe(
+    this.articleService.updateArticle(this.articleToUpdate._id, this.articleToUpdate).subscribe(
       (response) => {
         if (response.status == 'Ok') {
           this.requestStatus = 'success';
-          this.articleToCreate = response.article;
+          this.articleToUpdate = response.article;
 
           Swal.fire({
             icon: 'success',
-            text: '¡El artículo se creó correctamente!',
+            text: '¡El artículo se editó correctamente!',
             confirmButtonColor: '#179613',
             confirmButtonText: 'Aceptar',
           });
 
-          this.router.navigate(['/blog']);
+          this.router.navigate(['/blog/article', this.articleToUpdate._id]);
         } else {
           this.requestStatus = 'error';
         }
       },
       (error) => {
-        console.log('Super error' + error);
         Swal.fire({
           icon: 'error',
-          text: '¡El artículo no se pudo crear!',
+          text: '¡El artículo no se pudo editar!',
           confirmButtonColor: '#179613',
           confirmButtonText: 'Aceptar',
         });
+        console.log('Waka error' + error);
         this.requestStatus = 'error';
       }
     );
   }
 
   imageUpload(event: any) {
-    this.articleToCreate.image = event.body.image;
+    this.articleToUpdate.image = event.body.image;
+  }
+
+  getArticle() {
+    this.activatedRoute.params.subscribe((params) => {
+      let id = params['id'];
+      this.articleService.getArticle(id).subscribe(
+        (response) => {
+          if (response.article) {
+            this.articleToUpdate = response.article;
+          } else {
+            console.log('¡Oh no!¡El artículo que buscas no existe!');
+            this.router.navigate(['/home']);
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.router.navigate(['/home']);
+        }
+      );
+    });
   }
 }
