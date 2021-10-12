@@ -22,6 +22,7 @@ export class ArticleSearchComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.searchString = params['searchString'];
+      this.articleList = [];
       this.articleService.searchArticle(this.searchString).subscribe(
         (response) => {
           if (response.articles) {
@@ -30,10 +31,12 @@ export class ArticleSearchComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          //console.log(error);
           if (error.error.message == '¡No hay artículos que coincidan con la búsqueda!') {
-            this.errorType = 1;
-          }
+            this.errorType = 2;
+          } else if (error.message.includes('Unknown Error')) {
+            this.errorType = 0;
+          } else console.log(error);
         }
       );
     });

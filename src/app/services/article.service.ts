@@ -12,10 +12,6 @@ export class ArticleService {
     this.baseURL = Global.url;
   }
 
-  testing() {
-    return '¡Soy el servicio con cebolla!';
-  }
-
   getArticles(latestFive: any = null): Observable<any> {
     var articlelistURL = 'article_list';
     if (latestFive != null) {
@@ -47,5 +43,11 @@ export class ArticleService {
   deleteArticle(articleId: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.delete(this.baseURL + 'article_delete/' + articleId, { headers: headers });
+  }
+
+  uploadArticleImage(image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file0', image, image.name);
+    return this.http.post(this.baseURL + 'article_img_upload', formData);
   }
 }

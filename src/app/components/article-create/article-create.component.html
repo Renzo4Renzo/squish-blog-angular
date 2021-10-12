@@ -3,7 +3,7 @@
     <h1 class="form_title">Crear Artículo</h1>
 
     <form class="mid_form" #articleForm="ngForm" (ngSubmit)="submitArticle()">
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="title">Título</label>
         <input
           type="text"
@@ -16,25 +16,31 @@
         <small *ngIf="!title.valid && title.touched">¡El título ingresado no es válido!</small>
       </div>
 
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="content">Contenido</label>
         <textarea name="content" #content="ngModel" [(ngModel)]="articleToCreate.content" required></textarea>
         <small *ngIf="!content.valid && content.touched">¡El contenido ingresado no es válido!</small>
       </div>
 
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="image">Imagen</label>
-        <!-- <div class="image_input"><input type="file" name="image" /></div> -->
-        <angular-file-uploader [config]="afuConfig" (ApiResponse)="imageUpload($event)"> </angular-file-uploader>
+        <div class="div-upload-article-image">
+          <input type="file" class="upload-article-image" (change)="onFileSelected($event)" />
+        </div>
       </div>
 
       <input
+        *ngIf="!isSaving"
         type="submit"
         value="Crear Artículo"
         class="btn"
         [ngClass]="articleForm.valid ? 'btn_success' : 'btn_disabled'"
         [disabled]="articleForm.invalid"
       />
+      <div class="loading-article" *ngIf="isSaving">
+        <img class="loading-article-icon" src="assets/images/loading.gif" width="80px" alt="Cargando" />
+        <p class="loading-article-text">Guardando Artículo...</p>
+      </div>
     </form>
   </section>
 

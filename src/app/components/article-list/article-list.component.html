@@ -1,10 +1,23 @@
-<div class="loading" *ngIf="errorType == 0">
-  <img src="assets/images/loading.gif" width="80px" alt="Cargando" />
-  <p>Consultando artículos...</p>
+<div class="loading-article" *ngIf="articles.length == 0 && errorType == -1">
+  <img class="loading-article-icon" src="assets/images/loading.gif" width="80px" alt="Cargando" />
+  <p class="loading-article-text">Consultando artículos...</p>
 </div>
 
-<div class="noArticles" *ngIf="errorType == 1">
-  <p>¡No hay artículos para mostrar!</p>
+<div class="error-article" *ngIf="errorType == 0">
+  <i class="error-article-icon bi-wifi-off"></i>
+  <p class="error-article-text">No hay conexión con la base de datos.<br /><b>¡Inténtalo en unos minutos!</b></p>
+</div>
+
+<div class="error-article" *ngIf="errorType == 1">
+  <i class="error-article-icon bi-emoji-dizzy-fill"></i>
+  <p class="error-article-text">No hay artículos para mostrar.<br /><b>¡Sé el primero en redactar uno!</b></p>
+</div>
+
+<div class="error-article" *ngIf="errorType == 2">
+  <i class="error-article-icon bi-emoji-dizzy-fill"></i>
+  <p class="error-article-text">
+    No hay artículos que coincidan con tu búsqueda.<br /><b>¡Anímate y redacta un artículo al respecto!</b>
+  </p>
 </div>
 
 <div *ngIf="articles.length > 0">

@@ -69,6 +69,33 @@
 .article_text a:hover {
   color: #eb1616;
 }
+
+.loading-article {
+  margin: 40px 0;
+}
+
+.loading-article-text {
+  margin: 5px 0 0 0;
+}
+
+.error-article {
+  margin: 40px 0;
+}
+
+.error-article-icon {
+  font-size: 70px;
+  color: #333;
+}
+
+.error-article-text {
+  margin: 10px 0 0 0;
+}
+
+.search-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ARTICLE LIST: END */
 
 /* ARTICLE LIST EXPERIMENTS: START */

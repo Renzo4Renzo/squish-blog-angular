@@ -370,6 +370,7 @@ body {
     width: auto;
     min-height: auto;
     padding: 20px 20px 0 20px;
+    margin: 0;
   }
   #sidebar {
     width: 50%;
@@ -549,30 +550,20 @@ body {
 /* BOTONES PROPIOS: END */
 
 /* BOTON CARGA IMAGEN: START */
-#attachPin > div {
+.div-upload-article-image {
   display: flex;
   align-items: center;
   justify-content: start;
-  padding: 0px !important;
 }
 
-#attachPin a {
-  color: #000;
-  border: none;
-  border-radius: 0px;
-  border: 1px solid #cccccc;
+.upload-article-image {
+  width: 100%;
+  font-family: "Work Sans", sans-serif;
   background: rgb(249, 249, 249);
   margin: 0;
   padding: 10px;
+  border-bottom: 1px solid #cccccc;
 }
-
-#attachPin span {
-  font-size: 14px;
-  margin: 0 0 0 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* BOTON CARGA IMAGEN: END */
 
 /* PERSONALIZACION SWAL MODAL: START */
@@ -582,6 +573,10 @@ div.swal2-actions {
 
 div.swal2-icon {
   margin: 25px auto 0px;
+}
+
+.swal2-html-container {
+  white-space: pre-wrap;
 }
 
 button.swal2-styled.swal2-confirm {

@@ -13,21 +13,25 @@ export class BlogComponent implements OnInit {
   public sliderSize = 'small';
 
   public articleList: Array<Article> = [];
-  public errorMessage: string = '';
+  public errorType: number = -1;
 
   constructor(private articleService: ArticleService) {}
 
   ngOnInit(): void {
     this.articleService.getArticles().subscribe(
       (response) => {
-        if (response.articles) {
+        if (response.status == 'Ok') {
           this.articleList = response.articles;
-        } else {
-          this.errorMessage = '¡No hay artículos que mostrar!';
         }
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
+        if (error.error.message) {
+          this.errorType = 1;
+          console.log(this.errorType);
+        } else if (error.message.includes('Unknown Error')) {
+          this.errorType = 0;
+        } else console.log(error);
       }
     );
   }
