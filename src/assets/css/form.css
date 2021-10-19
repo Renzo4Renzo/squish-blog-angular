@@ -47,13 +47,23 @@
 .mid_form textarea {
   display: block;
   width: 100%;
-  height: 100px;
+  height: 200px;
   max-width: 100%;
   resize: none;
   box-sizing: border-box;
   font-family: "Work Sans", sans-serif;
   margin: 0;
   padding: 2px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: rgb(249, 249, 249);
+}
+
+.mid_form select {
+  width: 100%;
+  height: 30px;
+  font-family: "Work Sans", sans-serif;
   outline: none;
   border: none;
   border-bottom: 1px solid #ccc;

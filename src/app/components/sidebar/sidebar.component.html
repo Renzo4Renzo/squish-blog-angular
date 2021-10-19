@@ -6,7 +6,7 @@
 <div id="search" class="sidebar_item">
   <h3>Buscador</h3>
   <p>¡Busca tu artículo favorito!</p>
-  <form #searchForm="ngForm" (ngSubmit)="searchArticle()">
+  <form #searchForm="ngForm" (ngSubmit)="validateSearchString()">
     <input type="text" name="search_input" [(ngModel)]="searchString" />
     <input type="submit" name="search_submit" value="Buscar" class="btn btn_info" />
   </form>

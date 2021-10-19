@@ -3,7 +3,7 @@
     <h1 class="form_title">Editar Artículo</h1>
 
     <form class="mid_form" #articleForm="ngForm" (ngSubmit)="submitArticle()">
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="title">Título</label>
         <input
           type="text"
@@ -11,36 +11,53 @@
           #title="ngModel"
           [(ngModel)]="articleToUpdate.title"
           required
-          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1][a-zA-ZÀ-ÿ\u00f1\u00d1\s]*$"
+          pattern='^[A-Za-z0-9ñáéíóúüÁÉÍÓÚÜ()¿?¡!":,;.%&-][A-Za-z0-9ñáéíóúüÁÉÍÓÚÜ()¿?¡!":,;.%&-\s]*$'
+          autocomplete="off"
         />
         <small *ngIf="!title.valid && title.touched">¡El título ingresado no es válido!</small>
       </div>
 
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="content">Contenido</label>
         <textarea name="content" #content="ngModel" [(ngModel)]="articleToUpdate.content" required></textarea>
         <small *ngIf="!content.valid && content.touched">¡El contenido ingresado no es válido!</small>
       </div>
 
-      <div class="form_group">
+      <div class="form_group" *ngIf="!isSaving">
         <label for="image">Imagen</label>
-        <div class="article_edit_image">
+        <div class="article-image-preview upload-preview" *ngIf="imagePreview">
+          <img [src]="imagePreview" />
+        </div>
+        <div class="article-image-preview normal-preview" *ngIf="!imagePreview && oldImageExists && !oldImageHidden">
           <img
             src="{{ baseURL + 'article_img/' + articleToUpdate.image }}"
             alt="{{ articleToUpdate.title }}"
             *ngIf="articleToUpdate.image"
           />
+          <div class="hide-old-image">
+            <a (click)="hideOldImage()" class="btn btn_danger">Eliminar Imagen</a>
+          </div>
         </div>
-        <angular-file-uploader [config]="afuConfig" (ApiResponse)="imageUpload($event)"> </angular-file-uploader>
+        <div class="div-upload-article-image" *ngIf="!oldImageExists || oldImageHidden">
+          <input #inputImage type="file" class="upload-article-image" (change)="onFileSelected($event)" />
+          <div class="reset-upload-image" *ngIf="selectedFile" (click)="resetFile()">
+            <i class="bi bi-trash-fill"></i>
+          </div>
+        </div>
       </div>
 
       <input
+        *ngIf="!isSaving"
         type="submit"
         value="Editar Artículo"
         class="btn"
         [ngClass]="articleForm.valid ? 'btn_success' : 'btn_disabled'"
         [disabled]="articleForm.invalid"
       />
+      <div class="loading-article" *ngIf="isSaving">
+        <img class="loading-article-icon" src="assets/images/loading.gif" width="80px" alt="Cargando" />
+        <p class="loading-article-text">Guardando Artículo...</p>
+      </div>
     </form>
   </section>
 

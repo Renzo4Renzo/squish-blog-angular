@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/Article';
 import { ArticleService } from 'src/app/services/article.service';
@@ -12,8 +12,13 @@ import Swal from 'sweetalert2';
 })
 export class ArticleCreateComponent implements OnInit {
   public articleToCreate: Article;
-  public selectedFile!: File;
   public isSaving: boolean = false;
+
+  public imagePreview: string = '';
+  public selectedFile: File | undefined;
+
+  @ViewChild('inputImage')
+  public inputImage: any = null;
 
   constructor(private articleService: ArticleService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.articleToCreate = new Article('', '', '', '', null);
@@ -38,6 +43,7 @@ export class ArticleCreateComponent implements OnInit {
           ) {
             this.swalErrorMessage(error);
           } else console.log(error);
+          this.resetFile();
           this.isSaving = false;
         }
       );
@@ -65,6 +71,7 @@ export class ArticleCreateComponent implements OnInit {
         if (error.error.message == '¡No se pudo conectar con la base de datos!') {
           this.swalErrorMessage(error);
         } else console.log(error);
+        this.resetFile();
         this.isSaving = false;
       }
     );
@@ -81,5 +88,43 @@ export class ArticleCreateComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+    this.extractBase64(this.selectedFile).then(
+      (image: any) => {
+        this.imagePreview = image.base;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+      }
+    );
+  }
+
+  extractBase64 = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const imageReader = new FileReader();
+        imageReader.readAsDataURL($event);
+        imageReader.onload = () => {
+          if (imageReader.result) {
+            if (imageReader.result.toString().includes('data:image')) {
+              resolve({
+                base: imageReader.result,
+              });
+            } else {
+              reject('¡El documento no es una imagen!');
+            }
+          } else reject('¡No se pudo leer su documento!');
+        };
+        imageReader.onerror = (error) => {
+          reject('¡Error al intentar leer el documento!');
+        };
+      } catch (error) {
+        return console.log(error);
+      }
+    });
+
+  resetFile() {
+    if (this.inputImage) this.inputImage.nativeElement.value = '';
+    this.imagePreview = '';
+    this.selectedFile = undefined;
   }
 }

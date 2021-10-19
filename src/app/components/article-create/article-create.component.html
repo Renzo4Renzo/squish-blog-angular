@@ -11,7 +11,8 @@
           #title="ngModel"
           [(ngModel)]="articleToCreate.title"
           required
-          pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1][a-zA-ZÀ-ÿ\u00f1\u00d1\s]*$"
+          pattern='^[A-Za-z0-9ñáéíóúüÁÉÍÓÚÜ()¿?¡!":,;.%&-][A-Za-z0-9ñáéíóúüÁÉÍÓÚÜ()¿?¡!":,;.%&-\s]*$'
+          autocomplete="off"
         />
         <small *ngIf="!title.valid && title.touched">¡El título ingresado no es válido!</small>
       </div>
@@ -24,8 +25,14 @@
 
       <div class="form_group" *ngIf="!isSaving">
         <label for="image">Imagen</label>
+        <div class="article-image-preview upload-preview" *ngIf="imagePreview">
+          <img [src]="imagePreview" />
+        </div>
         <div class="div-upload-article-image">
-          <input type="file" class="upload-article-image" (change)="onFileSelected($event)" />
+          <input #inputImage type="file" class="upload-article-image" (change)="onFileSelected($event)" />
+          <div class="reset-upload-image" *ngIf="selectedFile" (click)="resetFile()">
+            <i class="bi bi-trash-fill"></i>
+          </div>
         </div>
       </div>
 

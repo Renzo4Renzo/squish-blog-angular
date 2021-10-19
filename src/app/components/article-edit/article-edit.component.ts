@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFileUploaderConfig } from 'angular-file-uploader';
 import { Article } from 'src/app/models/Article';
 import { ArticleService } from 'src/app/services/article.service';
 import { Global } from 'src/app/services/global';
@@ -14,78 +13,25 @@ import Swal from 'sweetalert2';
 })
 export class ArticleEditComponent implements OnInit {
   public articleToUpdate: Article;
-  public requestStatus: string = '';
+  public isSaving: boolean = false;
   public baseURL: string = Global.url;
 
-  public afuConfig: any;
+  public imagePreview: string = '';
+  public selectedFile: File | undefined;
+
+  @ViewChild('inputImage')
+  public inputImage: any = null;
+
+  public oldImageHidden: Boolean = false;
+  public oldImagePath: string = '';
+  public oldImageExists: Boolean = false;
 
   constructor(private articleService: ArticleService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.articleToUpdate = new Article('', '', '', '', null);
-    this.afuConfig = {
-      multiple: false,
-      formatsAllowed: '.jpg,.png,.gif,.jpeg',
-      maxSize: '1',
-      uploadAPI: {
-        url: this.baseURL + 'article_img_upload',
-        method: 'POST',
-      },
-      theme: 'attachPin',
-      hideProgressBar: true,
-      hideResetBtn: true,
-      hideSelectBtn: true,
-      fileNameIndex: true,
-      autoUpload: false,
-      replaceTexts: {
-        selectFileBtn: 'Selecciona el archivo...',
-        resetBtn: 'Borrar',
-        uploadBtn: 'Cargar',
-        dragNDropBox: 'Arrastra y suelta el archivo aquí',
-        attachPinBtn: 'Selecciona la imagen...',
-        afterUploadMsg_success: '¡El archivo se cargó exitosamente!',
-        afterUploadMsg_error: '¡No se pudo cargar el archivo!',
-        sizeLimit: 'Tamaño Límite',
-      },
-    };
   }
 
   ngOnInit(): void {
     this.getArticle();
-  }
-
-  submitArticle() {
-    this.articleService.updateArticle(this.articleToUpdate._id, this.articleToUpdate).subscribe(
-      (response) => {
-        if (response.status == 'Ok') {
-          this.requestStatus = 'success';
-          this.articleToUpdate = response.article;
-
-          Swal.fire({
-            icon: 'success',
-            text: '¡El artículo se editó correctamente!',
-            confirmButtonColor: '#179613',
-            confirmButtonText: 'Aceptar',
-          });
-
-          this.router.navigate(['/blog/article', this.articleToUpdate._id]);
-        } else {
-          this.requestStatus = 'error';
-        }
-      },
-      (error) => {
-        Swal.fire({
-          icon: 'error',
-          text: '¡El artículo no se pudo editar!',
-          confirmButtonColor: '#179613',
-          confirmButtonText: 'Aceptar',
-        });
-        console.log('Waka error' + error);
-        this.requestStatus = 'error';
-      }
-    );
-  }
-
-  imageUpload(event: any) {
-    this.articleToUpdate.image = event.body.image;
   }
 
   getArticle() {
@@ -99,6 +45,10 @@ export class ArticleEditComponent implements OnInit {
             console.log('¡Oh no!¡El artículo que buscas no existe!');
             this.router.navigate(['/home']);
           }
+          if (this.articleToUpdate.image) {
+            this.oldImagePath = this.articleToUpdate.image;
+            this.oldImageExists = true;
+          }
         },
         (error) => {
           console.log(error);
@@ -106,5 +56,133 @@ export class ArticleEditComponent implements OnInit {
         }
       );
     });
+  }
+
+  submitArticle() {
+    this.isSaving = true;
+    if (this.selectedFile) {
+      this.articleService.uploadArticleImage(this.selectedFile).subscribe(
+        (response) => {
+          this.articleToUpdate.image = response.image;
+          if (this.oldImageExists) this.deleteOldImage(this.oldImagePath);
+          this.submitContent();
+        },
+        (error) => {
+          if (error.error.message == '¡El peso máximo permitido de los archivos es de 1MB!') {
+            this.swalErrorMessage(error);
+          } else if (
+            error.error.message ==
+            '¡La extensión de la imagen no es válida!\nLas extensiones válidas son: .png, .jpg, .jpeg, .gif'
+          ) {
+            this.swalErrorMessage(error);
+          } else console.log(error);
+          this.resetFile();
+          this.oldImageHidden = false;
+          this.isSaving = false;
+        }
+      );
+    } else {
+      if (this.oldImageExists && this.oldImageHidden) {
+        this.deleteOldImage(this.oldImagePath);
+        this.articleToUpdate.image = '';
+      }
+      this.submitContent();
+    }
+  }
+
+  deleteOldImage(oldImagePath: string) {
+    this.articleService.deleteArticleImage(oldImagePath).subscribe(
+      (response) => {
+        if (response.status == 'Ok') {
+          console.log('¡La imagen se eliminó correctamente!');
+        }
+      },
+      (error) => {
+        if (error.error.message == '¡No se encontró la imagen!') {
+          this.swalErrorMessage(error);
+        } else console.log(error);
+      }
+    );
+  }
+
+  submitContent() {
+    this.articleService.updateArticle(this.articleToUpdate._id, this.articleToUpdate).subscribe(
+      (response) => {
+        if (response.status == 'Ok') {
+          this.articleToUpdate = response.article;
+          Swal.fire({
+            icon: 'success',
+            text: '¡El artículo se editó correctamente!',
+            confirmButtonColor: '#179613',
+            confirmButtonText: 'Aceptar',
+          });
+          this.router.navigate(['/blog/article', this.articleToUpdate._id]);
+        }
+        this.isSaving = false;
+      },
+      (error) => {
+        if (error.error.message == '¡No se pudo conectar con la base de datos!') {
+          this.swalErrorMessage(error);
+        } else console.log(error);
+        this.resetFile();
+        this.oldImageHidden = false;
+        this.isSaving = false;
+      }
+    );
+  }
+
+  swalErrorMessage(error: any) {
+    Swal.fire({
+      icon: 'error',
+      text: error.error.message,
+      confirmButtonColor: '#179613',
+      confirmButtonText: 'Aceptar',
+    });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.extractBase64(this.selectedFile).then(
+      (image: any) => {
+        this.imagePreview = image.base;
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+      }
+    );
+  }
+
+  extractBase64 = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const imageReader = new FileReader();
+        imageReader.readAsDataURL($event);
+        imageReader.onload = () => {
+          if (imageReader.result) {
+            if (imageReader.result.toString().includes('data:image')) {
+              resolve({
+                base: imageReader.result,
+              });
+            } else {
+              reject('¡El documento no es una imagen!');
+            }
+          } else reject('¡No se pudo leer su documento!');
+        };
+        imageReader.onerror = (error) => {
+          reject('¡Error al intentar leer el documento!');
+        };
+      } catch (error) {
+        return console.log(error);
+      }
+    });
+
+  resetFile() {
+    if (this.inputImage) this.inputImage.nativeElement.value = '';
+    this.imagePreview = '';
+    this.selectedFile = undefined;
+  }
+
+  hideOldImage() {
+    this.oldImageHidden = true;
   }
 }

@@ -27,10 +27,9 @@ export class HomeComponent implements OnInit {
         }
       },
       (error) => {
-        //console.log(error);
         if (error.error.message) {
           this.errorType = 1;
-          console.log(this.errorType);
+          //console.log(this.errorType);
         } else if (error.message.includes('Unknown Error')) {
           this.errorType = 0;
         } else console.log(error);

@@ -31,7 +31,6 @@ export class ArticleSearchComponent implements OnInit {
           }
         },
         (error) => {
-          //console.log(error);
           if (error.error.message == '¡No hay artículos que coincidan con la búsqueda!') {
             this.errorType = 2;
           } else if (error.message.includes('Unknown Error')) {

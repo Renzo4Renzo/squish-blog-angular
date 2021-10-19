@@ -50,4 +50,13 @@ export class ArticleService {
     formData.append('file0', image, image.name);
     return this.http.post(this.baseURL + 'article_img_upload', formData);
   }
+
+  deleteArticleImage(imagePath: string): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.delete(this.baseURL + 'article_img_delete/' + imagePath, { headers: headers });
+  }
+
+  sendEmail(contactData: any): Observable<any> {
+    return this.http.post(this.baseURL + 'send_contact_email', contactData);
+  }
 }

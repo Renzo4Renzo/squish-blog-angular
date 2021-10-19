@@ -513,11 +513,11 @@ body {
 }
 
 .btn_success {
-  background: rgb(23, 150, 19);
+  background: #179613;
 }
 
 .btn_success:hover {
-  background: rgb(13, 100, 10);
+  background: #0d640a;
 }
 
 .btn_warning {
@@ -537,11 +537,11 @@ body {
 }
 
 .btn_info {
-  background: rgb(34, 125, 230);
+  background: #227de6;
 }
 
 .btn_info:hover {
-  background: rgb(30, 107, 196);
+  background: #1e6bc4;
 }
 
 .btn_disabled {
@@ -553,16 +553,24 @@ body {
 .div-upload-article-image {
   display: flex;
   align-items: center;
-  justify-content: start;
 }
 
 .upload-article-image {
   width: 100%;
+  box-sizing: border-box;
   font-family: "Work Sans", sans-serif;
-  background: rgb(249, 249, 249);
+  background: #f9f9f9;
   margin: 0;
   padding: 10px;
   border-bottom: 1px solid #cccccc;
+}
+
+.reset-upload-image {
+  padding: 11px;
+  background: #eb1616;
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
 }
 /* BOTON CARGA IMAGEN: END */
 
@@ -575,8 +583,9 @@ div.swal2-icon {
   margin: 25px auto 0px;
 }
 
-.swal2-html-container {
+#swal2-html-container {
   white-space: pre-wrap;
+  overflow: hidden;
 }
 
 button.swal2-styled.swal2-confirm {

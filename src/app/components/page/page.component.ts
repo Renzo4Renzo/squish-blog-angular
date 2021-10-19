@@ -11,6 +11,9 @@ export class PageComponent implements OnInit {
   public currentSurname: string;
   public pageSliderText = 'Página';
 
+  public randomNames = ['Omar', 'Dedín', 'José', 'Karina', 'César', 'Leslie', 'Diego', 'Duncan'];
+  public randomSurnames = ['Ascendoso', 'Liberato', 'Basurco', 'Liza', 'Delgado', 'Vierisha', 'Vásquez', 'Pérez'];
+
   constructor(private route: ActivatedRoute, private router: Router) {
     this.currentName = '';
     this.currentSurname = '';
@@ -24,6 +27,12 @@ export class PageComponent implements OnInit {
   }
 
   redirection() {
-    this.router.navigate(['/page-test', 'Dedín', 'Liberato']);
+    let randomName = this.randomNames[this.getRandomInt(8)];
+    let randomSurname = this.randomSurnames[this.getRandomInt(8)];
+    this.router.navigate(['/page-test', randomName, randomSurname]);
+  }
+
+  getRandomInt(maxValue: number) {
+    return Math.floor(Math.random() * maxValue);
   }
 }

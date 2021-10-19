@@ -17,6 +17,9 @@ export class ArticleComponent implements OnInit {
   public baseURL: string;
   public errorMessage: string = '';
 
+  public isLoading: boolean = true;
+  public isDeleting: boolean = false;
+
   constructor(private articleService: ArticleService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.baseURL = Global.url;
   }
@@ -28,13 +31,14 @@ export class ArticleComponent implements OnInit {
         (response) => {
           if (response.article) {
             this.article = response.article;
-          } else {
-            this.errorMessage = '¡Oh no!¡El artículo que buscas no existe!';
-            this.router.navigate(['/home']);
+            this.isLoading = false;
           }
         },
         (error) => {
-          console.log(error);
+          if (error.error.message == '¡No se pudo conectar con la base de datos!') {
+            this.swalErrorMessage(error);
+          } else console.log(error);
+          this.isLoading = false;
           this.router.navigate(['/home']);
         }
       );
@@ -47,35 +51,43 @@ export class ArticleComponent implements OnInit {
       text: 'Si eliminas el artículo, ¡no podrás recuperarlo!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#179613',
+      cancelButtonColor: '#eb1616',
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isDeleting = true;
         this.articleService.deleteArticle(id).subscribe(
           (response) => {
-            console.log('¡Artículo con ' + id + ' borrado exitosamente!');
+            //console.log('¡Artículo con ' + id + ' borrado exitosamente!');
             Swal.fire({
               icon: 'success',
               text: '¡El artículo se eliminó correctamente!',
               confirmButtonColor: '#179613',
               confirmButtonText: 'Aceptar',
             });
+            this.isDeleting = false;
             this.router.navigate(['/blog']);
           },
           (error) => {
-            Swal.fire({
-              icon: 'error',
-              text: '¡El artículo no se pudo eliminar!',
-              confirmButtonColor: '#179613',
-              confirmButtonText: 'Aceptar',
-            });
-            console.log(error);
-            this.router.navigate(['/blog']);
+            if (error.error.message == '¡No se pudo conectar con la base de datos!') {
+              this.swalErrorMessage(error);
+            } else console.log(error);
+            this.isDeleting = false;
+            this.router.navigate(['/blog/article', id]);
           }
         );
       }
+    });
+  }
+
+  swalErrorMessage(error: any) {
+    Swal.fire({
+      icon: 'error',
+      text: error.error.message,
+      confirmButtonColor: '#179613',
+      confirmButtonText: 'Aceptar',
     });
   }
 }
