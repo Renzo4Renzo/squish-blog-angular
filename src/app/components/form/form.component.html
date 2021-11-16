@@ -53,10 +53,10 @@
         <label for="question">Pregunta</label>
         <select name="question" #question="ngModel" [(ngModel)]="person.question">
           <option value="" disabled>Selecciona una pregunta...</option>
-          <option value="1">¿Te salió la Raiden Shogun?</option>
-          <option value="2">¿Te gustan las canciones del Faraón Love Shady?</option>
-          <option value="3">¿Ganaste un auto con un mes de trading?</option>
-          <option value="4">¿Cuántos bitcoins costaría el cumpleaños de Aliasandria?</option>
+          <option value="1">¿Quiénes pueden escribir artículos?</option>
+          <option value="2">¿De qué temas puedo escribir artículos?</option>
+          <option value="3">¿Cúanto tiempo debo esperar para que aprueben mi artículo?</option>
+          <option value="4">¿Cuántos artículos puedo publicar?</option>
         </select>
         <small *ngIf="question.value == '' && question.touched">¡No has seleccionado ninguna pregunta!</small>
       </div>
