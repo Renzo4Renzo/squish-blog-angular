@@ -16,7 +16,6 @@ export class SidebarComponent implements OnInit {
 
   validateSearchString() {
     let searchStringModified = this.searchString.trim();
-    console.log('searchStringModified: ' + searchStringModified);
     this.searchArticle(searchStringModified);
   }
 

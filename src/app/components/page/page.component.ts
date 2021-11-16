@@ -11,8 +11,8 @@ export class PageComponent implements OnInit {
   public currentSurname: string;
   public pageSliderText = 'Página';
 
-  public randomNames = ['Omar', 'Dedín', 'José', 'Karina', 'César', 'Leslie', 'Diego', 'Duncan'];
-  public randomSurnames = ['Ascendoso', 'Liberato', 'Basurco', 'Liza', 'Delgado', 'Vierisha', 'Vásquez', 'Pérez'];
+  public randomNames = ['Omar', 'Willy', 'José', 'Karina', 'César', 'Leslie', 'Diego', 'Duncan'];
+  public randomSurnames = ['Arias', 'Liberato', 'Basurco', 'Liza', 'Delgado', 'Viera', 'Vásquez', 'Pérez'];
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.currentName = '';

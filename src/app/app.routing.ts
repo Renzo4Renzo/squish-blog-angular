@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { FormComponent } from './components/form/form.component';
-import { MovieComponent } from './components/movie/movie.component';
+/* import { MovieComponent } from './components/movie/movie.component'; */
 import { PageComponent } from './components/page/page.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ArticleComponent } from './components/article/article.component';
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: 'article/edit/:id', component: ArticleEditComponent },
   { path: 'search/:searchString', component: ArticleSearchComponent },
   { path: 'form', component: FormComponent },
-  { path: 'movie', component: MovieComponent },
+  /* { path: 'movie', component: MovieComponent }, */
   { path: 'page-test', component: PageComponent },
   { path: 'page-test/:name/:surname', component: PageComponent },
   { path: '**', component: ErrorComponent },
