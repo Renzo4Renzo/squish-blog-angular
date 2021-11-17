@@ -29,7 +29,13 @@
           <img [src]="imagePreview" />
         </div>
         <div class="div-upload-article-image">
-          <input #inputImage type="file" class="upload-article-image" (change)="onFileSelected($event)" />
+          <input
+            #inputImage
+            type="file"
+            accept=".jpg,.jpeg,.png,.gif"
+            class="upload-article-image"
+            (change)="onFileSelected($event)"
+          />
           <div class="reset-upload-image" *ngIf="selectedFile" (click)="resetFile()">
             <i class="bi bi-trash-fill"></i>
           </div>
